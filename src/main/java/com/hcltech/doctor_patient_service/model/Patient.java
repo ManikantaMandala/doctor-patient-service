@@ -6,6 +6,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 
 import java.util.UUID;
+
 @Entity
 public class Patient {
 
@@ -16,5 +17,4 @@ public class Patient {
    @OneToOne
     @JoinColumn(name="d_id",referencedColumnName ="id")
     Doctor doctor;
-
 }
