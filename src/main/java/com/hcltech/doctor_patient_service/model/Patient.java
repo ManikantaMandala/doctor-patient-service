@@ -8,6 +8,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,18 +22,23 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Patient extends BaseModel {
-    @Column(name = "patient_name")
-    private String name;
+    @Column(name = "patient_first_name", nullable = false, length = 35)
+    private String firstName;
 
-    @Column(name = "patient_age")
+    @Column(name = "patient_last_name", nullable = false, length = 35)
+    private String lastName;
+
+    @Column(name = "patient_age", nullable = false)
     private int age;
 
-    @Column(name = "patient_gender")
+    @Column(name = "patient_gender", nullable = false)
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
     @ManyToOne
-    @JoinColumn(name = "doctor_id")
-    // @JoinColumn(name = "doctor_id", nullable = true)
+    @JoinColumn(name = "doctor_id", nullable = true)
     private Doctor doctor;
+
+    @OneToOne
+    private Appointment currentAppointment;
 }
