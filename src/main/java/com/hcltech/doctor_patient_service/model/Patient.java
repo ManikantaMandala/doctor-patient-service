@@ -2,13 +2,7 @@ package com.hcltech.doctor_patient_service.model;
 
 import java.util.UUID;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,13 +21,55 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "patient_name")
-    private String name;
+    @Column(name = "first_name")
+    private String firstName;
+    @Column(name="last_name")
+    private String lastname;
 
     @Column(name = "patient_age")
     private int age;
 
-    @ManyToOne()
-    @JoinColumn(name = "doctor_id")
-    private Doctor doctor;
+    @OneToOne()
+    @JoinColumn(name = "appointment_id",referencedColumnName = "id")
+    private Appointment appointmentId;
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public Appointment getAppointmentId() {
+        return appointmentId;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setAppointmentId(Appointment appointmentId) {
+        this.appointmentId = appointmentId;
+    }
 }
