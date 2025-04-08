@@ -2,18 +2,9 @@ package com.hcltech.doctor_patient_service.model;
 
 import java.util.UUID;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import jakarta.persistence.*;
+import lombok.*;
+
 
 @Entity
 @Getter
@@ -23,14 +14,17 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Patient {
     @Id
-    @Column(name = "patient_id")
+    @Column(name = "patient_id", unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "patient_name")
-    private String name;
+    @Column(name = "patient_first_name", nullable = false, length = 35)
+    private String firstName;
 
-    @Column(name = "patient_age")
+    @Column(name = "patient_last_name", nullable = false, length = 35)
+    private String lastName;
+
+    @Column(name = "patient_age", nullable = false)
     private int age;
 
     @ManyToOne()
