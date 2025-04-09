@@ -15,5 +15,6 @@ public class PatientDTO {
     private String lastName;
     private Integer age;
     private Gender gender;
+    private DoctorDTO doctorDTO;
     private AppointmentDTO currentAppointmentDTO;
 }

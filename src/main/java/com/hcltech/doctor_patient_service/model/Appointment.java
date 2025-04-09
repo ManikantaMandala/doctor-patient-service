@@ -6,21 +6,21 @@ import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
-@Data
+@Entity
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "appointments")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "appointmentId")
 public class Appointment extends BaseModel{
-    // @Id
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
-    // @Column(name = "appointment_id")
-    // private Long appointmentId;
 
 //    @NotNull(message = "Appointment time must not be null")
 //    @Future(message = "Appointment time must be in the future")
@@ -31,7 +31,7 @@ public class Appointment extends BaseModel{
     @JoinColumn(name = "fk_doctor_doc_id", nullable = false)
     private Doctor doctor;
 
-    @OneToOne(mappedBy = "")
+    @OneToOne(mappedBy = "currentAppointment")
     @JoinColumn(name = "fk_patient_id", nullable = false)
     private Patient patient;
 }
