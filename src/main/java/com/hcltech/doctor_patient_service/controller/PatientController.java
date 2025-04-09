@@ -33,7 +33,7 @@ public class PatientController {
         if(p1!=null){
             return ResponseEntity.ok(p1);
         }
-        return ResponseEntity.internalServerError().build();
+        return ResponseEntity.notFound().build();
     }
 
 

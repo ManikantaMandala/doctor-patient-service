@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface PatientRepository extends JpaRepository<Patient,Long> {
     @Query("select COUNT(DISTINCT a.doctor) from Patient p"+"JOIN p.appointment a"+"WHERE p.id=:patientId")
     long countPatientsByDoctorId(long id);
+
 }

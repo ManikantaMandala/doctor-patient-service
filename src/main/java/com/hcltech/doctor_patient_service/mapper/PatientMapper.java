@@ -39,6 +39,8 @@ public PatientDto update1(PatientDto p)
     }
 
     public PatientDto toDto(Patient p2){
+        if(p2==null)
+            return null;
         PatientDto p3=new PatientDto();
         p3.setId(p2.getId());
         p3.setFirstname(p2.getFirstName());
