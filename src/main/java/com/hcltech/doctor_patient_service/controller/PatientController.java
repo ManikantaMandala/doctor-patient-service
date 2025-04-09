@@ -1,9 +1,6 @@
 package com.hcltech.doctor_patient_service.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import com.hcltech.doctor_patient_service.dto.PatientDTO;
-
 import com.hcltech.doctor_patient_service.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

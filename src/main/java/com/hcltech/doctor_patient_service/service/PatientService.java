@@ -10,28 +10,31 @@ import java.util.List;
 public class PatientService {
 
     public List<PatientDTO> getAllPatientDetails() {
-
         return null;
     }
 
 
     public static Patient toEntity(PatientDTO patientDTO){
         Patient patient = new Patient();
+
         patient.setId(patientDTO.getId());
         patient.setFirstName(patientDTO.getFirstName());
         patient.setLastName(patientDTO.getLastName());
         patient.setAge(patientDTO.getAge());
-        patient.setDoctor(patientDTO.getDoctor());
+        patient.setCurrentAppointment(AppointmentService.toEntity(patientDTO.getCurrentAppointmentDTO()));
+
         return patient;
     }
 
     public static PatientDTO toDTO(Patient patient){
         PatientDTO patientDTO = new PatientDTO();
+
         patientDTO.setId(patient.getId());
         patientDTO.setFirstName(patient.getFirstName());
         patientDTO.setLastName(patient.getLastName());
         patientDTO.setAge(patient.getAge());
-        patientDTO.setDoctor(patient.getDoctor());
+        patientDTO.setCurrentAppointmentDTO(AppointmentService.toDTO(patient.getCurrentAppointment()));
+
         return patientDTO;
     }
 
@@ -40,7 +43,6 @@ public class PatientService {
     }
 
     public static List<PatientDTO> toDTO(List<Patient> patient){
-
         return patient.stream().map(p->toDTO(p)).toList();
     }
 

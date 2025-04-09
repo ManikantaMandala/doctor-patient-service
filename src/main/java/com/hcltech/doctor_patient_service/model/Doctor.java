@@ -2,11 +2,8 @@ package com.hcltech.doctor_patient_service.model;
 
 import java.util.List;
 
-import org.hibernate.annotations.BatchSize;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,10 +25,5 @@ public class Doctor extends BaseModel {
     private String specialization;
 
     @OneToMany(mappedBy = "doctor")
-    @JoinColumn(name="patient_id_f_key", referencedColumnName = "id")
-    private List<Patient> patients;
-
-    @OneToMany(mappedBy = "doctor")
-    @JoinColumn(name="appointment_id_f_key", referencedColumnName = "id")
     private List<Appointment> appointments;
 }

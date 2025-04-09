@@ -7,7 +7,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,7 +15,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Data
 @Getter
 @Setter
 @ToString
@@ -36,10 +34,10 @@ public class Patient extends BaseModel {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @ManyToOne
-    @JoinColumn(name = "doctor_id", nullable = true)
-    private Doctor doctor;
+    @Column(name = "patient_phone_number", nullable = false)
+    private String phoneNumber;
 
     @OneToOne
+    @JoinColumn(name = "fk_patient_appointment", nullable = false)
     private Appointment currentAppointment;
 }
