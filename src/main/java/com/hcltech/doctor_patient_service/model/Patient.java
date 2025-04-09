@@ -1,12 +1,11 @@
 package com.hcltech.doctor_patient_service.model;
 
-import java.util.UUID;
-
 import jakarta.persistence.*;
 import lombok.*;
 
 
 @Entity
+@Data
 @Getter
 @Setter
 @ToString
