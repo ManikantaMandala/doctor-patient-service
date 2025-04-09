@@ -31,6 +31,7 @@ public class Appointment extends BaseModel{
     @JoinColumn(name = "fk_appointment_doctor", referencedColumnName = "id", nullable = false)
     private Doctor doctor;
 
-    @OneToOne(mappedBy = "currentAppointment")
+    @OneToOne
+    @JoinColumn(name = "fk_appointment_patient", referencedColumnName = "id", nullable = false)
     private Patient patient;
 }

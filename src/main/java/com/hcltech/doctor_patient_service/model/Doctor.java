@@ -2,6 +2,7 @@ package com.hcltech.doctor_patient_service.model;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -24,6 +25,6 @@ public class Doctor extends BaseModel {
     @Column(name = "doctor_specialization", nullable = false)
     private String specialization;
 
-    @OneToMany(mappedBy = "doctor")
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Appointment> appointments;
 }
