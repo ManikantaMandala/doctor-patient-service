@@ -25,6 +25,6 @@ public class Doctor extends BaseModel {
     @Column(name = "doctor_specialization", nullable = false)
     private String specialization;
 
-    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "doctor", cascade = { CascadeType.PERSIST, CascadeType.MERGE }, orphanRemoval = true)
     private List<Appointment> appointments;
 }

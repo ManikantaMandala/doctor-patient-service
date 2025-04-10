@@ -1,6 +1,8 @@
 package com.hcltech.doctor_patient_service.controller;
 
+import com.hcltech.doctor_patient_service.dto.AppointmentDTO;
 import com.hcltech.doctor_patient_service.dto.PatientDTO;
+import com.hcltech.doctor_patient_service.model.Appointment;
 import com.hcltech.doctor_patient_service.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,14 @@ public class PatientController {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(response);
+    }
+
+
+    @GetMapping
+    public ResponseEntity<AppointmentDTO> viewAppointmentByPatientId(@RequestParam Long patientId) {
+        AppointmentDTO appointmentDTO = patientService.getAppointmentByPatientId(patientId);
+
+        return ResponseEntity.ok(appointmentDTO);
     }
 
 }

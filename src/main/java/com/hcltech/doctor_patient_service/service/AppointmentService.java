@@ -1,15 +1,21 @@
 package com.hcltech.doctor_patient_service.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import com.hcltech.doctor_patient_service.dao.service.AppointmentDAOService;
 import com.hcltech.doctor_patient_service.dto.AppointmentDTO;
 import com.hcltech.doctor_patient_service.model.Appointment;
+import com.hcltech.doctor_patient_service.repository.AppointmentRepo;
 
 @Service
 public class AppointmentService {
 
-    public AppointmentService() {
-        // empty constructor
+    private AppointmentDAOService appointmentDAOService;
+
+    public AppointmentService(AppointmentDAOService appointmentDAOService) {
+        this.appointmentDAOService = appointmentDAOService;
     }
 
     public static AppointmentDTO toDTO(Appointment appointment) {
@@ -33,4 +39,9 @@ public class AppointmentService {
 
         return appointment;
     }
+
+    public void deleteAppointment(Long appointmentId) throws IllegalArgumentException {
+        appointmentDAOService.deleteAppointmentById(appointmentId);
+    }
+
 }

@@ -37,6 +37,6 @@ public class Patient extends BaseModel {
     @Column(name = "patient_phone_number", nullable = false)
     private String phoneNumber;
 
-    @OneToOne(mappedBy = "currentAppointment", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
     private Appointment currentAppointment;
 }

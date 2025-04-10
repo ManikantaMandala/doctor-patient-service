@@ -1,6 +1,10 @@
 package com.hcltech.doctor_patient_service.service;
 
+import com.hcltech.doctor_patient_service.dao.service.AppointmentDAOService;
+import com.hcltech.doctor_patient_service.dao.service.PatientDAOService;
+import com.hcltech.doctor_patient_service.dto.AppointmentDTO;
 import com.hcltech.doctor_patient_service.dto.PatientDTO;
+import com.hcltech.doctor_patient_service.model.Appointment;
 import com.hcltech.doctor_patient_service.model.Patient;
 import org.springframework.stereotype.Service;
 
@@ -8,6 +12,14 @@ import java.util.List;
 
 @Service
 public class PatientService {
+
+    private PatientDAOService patientDAOService;
+    private AppointmentDAOService appointmentDAOService;
+
+    public PatientService(PatientDAOService patientDAOService, AppointmentDAOService appointmentDAOService) {
+        this.patientDAOService = patientDAOService;
+        this.appointmentDAOService = appointmentDAOService;
+    }
 
     public List<PatientDTO> getAllPatientDetails() {
         return null;
@@ -44,6 +56,18 @@ public class PatientService {
 
     public static List<PatientDTO> toDTO(List<Patient> patient){
         return patient.stream().map(p->toDTO(p)).toList();
+    }
+
+
+    public AppointmentDTO getAppointmentByPatientId(Long patientId) {
+        Patient patient = patientDAOService.getAppointmentByPatientId(patientId);
+
+        if(patient == null) {
+            throw new IllegalArgumentException("give me patientId not gembo bombo");
+        }
+
+        Appointment appointment = patient.getCurrentAppointment();
+        return appointmentDAOService.toDTO(appointment);
     }
 
 }
