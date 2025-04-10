@@ -15,5 +15,5 @@ public class DoctorDTO {
     private Long id;
     private String name;
     private String specialization;
-    private List<Appointment> appointments;
+    private List<Long> appointmentIds;
 }

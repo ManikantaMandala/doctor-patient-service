@@ -1,5 +1,6 @@
 package com.hcltech.doctor_patient_service.dto;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.hcltech.doctor_patient_service.enums.Gender;
 
 import lombok.AllArgsConstructor;
@@ -16,5 +17,6 @@ public class PatientDTO {
     private String name;
     private Integer age;
     private Gender gender;
-    private AppointmentDTO currentAppointmentDTO;
+    private String phoneNumber;
+    private Long appointmentId;
 }

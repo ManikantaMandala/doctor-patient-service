@@ -15,15 +15,16 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 // TODO: Ask Why this is required?
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "appointmentId")
-public class Appointment extends BaseModel{
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "Id")
+public class Appointment extends BaseModel {
 
 //    @NotNull(message = "Appointment time must not be null")
 //    @Future(message = "Appointment time must be in the future")
+
     @Column(name = "appointment_time", nullable = false)
     private LocalDateTime time;
 

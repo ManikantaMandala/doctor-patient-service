@@ -1,10 +1,12 @@
 package com.hcltech.doctor_patient_service.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import com.hcltech.doctor_patient_service.dto.AppointmentDTO;
 import com.hcltech.doctor_patient_service.model.Appointment;
 
+@Slf4j
 @Service
 public class AppointmentService {
 

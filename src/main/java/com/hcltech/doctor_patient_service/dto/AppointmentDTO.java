@@ -1,5 +1,7 @@
 package com.hcltech.doctor_patient_service.dto;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.hcltech.doctor_patient_service.model.Doctor;
 import com.hcltech.doctor_patient_service.model.Patient;
 import lombok.AllArgsConstructor;
@@ -11,6 +13,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class,property = "appointmentId")
 public class AppointmentDTO {
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
