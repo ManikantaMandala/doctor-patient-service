@@ -2,7 +2,12 @@ package com.hcltech.doctor_patient_service.model;
 
 import com.hcltech.doctor_patient_service.enums.Gender;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,9 +21,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Patient extends BaseModel {
-
-   // @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     @Column(name = "patient_first_name", nullable = false, length = 35)
     private String firstName;
 
@@ -35,7 +37,6 @@ public class Patient extends BaseModel {
     @Column(name = "patient_phone_number", nullable = false)
     private String phoneNumber;
 
-    @OneToOne
-    @JoinColumn(name="appointment_id",referencedColumnName = "Id")
+    @OneToOne(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
     private Appointment currentAppointment;
 }

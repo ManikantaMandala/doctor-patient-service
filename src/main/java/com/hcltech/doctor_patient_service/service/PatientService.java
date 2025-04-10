@@ -2,21 +2,24 @@ package com.hcltech.doctor_patient_service.service;
 
 import com.hcltech.doctor_patient_service.dao.service.AppointmentDAOService;
 import com.hcltech.doctor_patient_service.dao.service.PatientDAOService;
+import com.hcltech.doctor_patient_service.dto.AppointmentDTO;
 import com.hcltech.doctor_patient_service.dto.PatientDTO;
 import com.hcltech.doctor_patient_service.model.Appointment;
 import com.hcltech.doctor_patient_service.model.Patient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PatientService {
-    @Autowired
-    PatientDAOService patientDAOService;
-    @Autowired
-    AppointmentDAOService appointmentDAOService;
+
+    private final PatientDAOService patientDAOService;
+    private final AppointmentDAOService appointmentDAOService;
+
+    public PatientService(PatientDAOService patientDAOService, AppointmentDAOService appointmentDAOService) {
+        this.patientDAOService = patientDAOService;
+        this.appointmentDAOService = appointmentDAOService;
+    }
 
     public PatientDTO insertPatientDetails(PatientDTO patientDto)
     {
@@ -31,7 +34,6 @@ public class PatientService {
         Patient response= patientDAOService.updatePatient(patient);
         return toDTO(response);
     }
-
 
     public List<PatientDTO> getAllPatientDetails() {
         return null;
@@ -50,24 +52,11 @@ public class PatientService {
 
         Long appointmentId = patientDTO.getAppointmentId();
 
-        // Appointment appointment = appointmentDAOService.getAppointment(appointmentId);
         Appointment appointment = appointmentDAOService.getAppointmentById(appointmentId);
         patient.setCurrentAppointment(appointment);
 
         return patient;
     }
-
-    /*
-    public Appointment getAppointment(Long appointmentId) {
-        Optional<Appointment> optionalAppointment = appointmentDAOService.getAppointmentById(appointmentId);
-
-        if (optionalAppointment.isEmpty()) {
-            return null;
-        }
-
-        return optionalAppointment.get();
-    }
-    */
 
     public PatientDTO toDTO(Patient patient){
         PatientDTO patientDTO = new PatientDTO();
@@ -85,7 +74,6 @@ public class PatientService {
 
             patientDTO.setAppointmentId(patient.getCurrentAppointment().getId());
         }
-//        patientDTO.setCurrentAppointmentDTO(AppointmentService.toDTO(patient.getCurrentAppointment()));
 
         return patientDTO;
     }
@@ -96,6 +84,18 @@ public class PatientService {
 
     public List<PatientDTO> toDTO(List<Patient> patient){
         return patient.stream().map(p->toDTO(p)).toList();
+    }
+
+
+    public AppointmentDTO getAppointmentByPatientId(Long patientId) {
+        Patient patient = patientDAOService.getAppointmentByPatientId(patientId);
+
+        if(patient == null) {
+            throw new IllegalArgumentException("give me patientId not gembo bombo");
+        }
+
+        Appointment appointment = patient.getCurrentAppointment();
+        return appointmentDAOService.toDTO(appointment);
     }
 
 }

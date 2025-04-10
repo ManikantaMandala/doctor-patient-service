@@ -1,20 +1,20 @@
 package com.hcltech.doctor_patient_service.service;
 
-import com.hcltech.doctor_patient_service.dao.service.AppointmentDAOService;
+import java.util.List;
+
 import com.hcltech.doctor_patient_service.dao.service.DoctorDAOService;
-import com.hcltech.doctor_patient_service.dto.AppointmentDTO;
+import com.hcltech.doctor_patient_service.dao.service.AppointmentDAOService;
 import com.hcltech.doctor_patient_service.dto.DoctorDTO;
 import com.hcltech.doctor_patient_service.model.Appointment;
 import com.hcltech.doctor_patient_service.model.Doctor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DoctorService {
+
     private final DoctorDAOService doctorDAOService;
     private final AppointmentDAOService appointmentDAOService;
 
@@ -22,6 +22,19 @@ public class DoctorService {
         this.doctorDAOService = doctorDAOService;
         this.appointmentDAOService = appointmentDAOService;
     }
+
+    public List<Appointment> getAppointmentsByDoctorId(Long doctorId) {
+        Doctor doctor = doctorDAOService.getAppointmentById(doctorId);
+
+        if(doctor == null) {
+            // TODO: controller advice
+            // TODO: custom exception
+            throw new RuntimeException("pass correct doctor id");
+        }
+
+        return doctor.getAppointments();
+    }
+
 
     public DoctorDTO createDoctor(DoctorDTO doctorDTO) {
        Doctor doctor = toEntity(doctorDTO);
