@@ -23,11 +23,14 @@ public class AppointmentDTO {
 //    @Column(name = "appointment_time", nullable = false)
     private LocalDateTime time;
 
+    private int doctorId;
+    private Long patientId;
+
 //    @ManyToOne
 //    @JoinColumn(name = "fk_doctor_doc_id", nullable = false)
-    private Doctor doctor;
+    //private Doctor doctor;
 
 //    @OneToOne
 //    @JoinColumn(name = "fk_patient_id", nullable = false)
-    private Patient patient;
+    //private Patient patient;
 }

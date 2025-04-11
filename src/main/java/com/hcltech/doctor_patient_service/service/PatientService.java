@@ -6,6 +6,7 @@ import com.hcltech.doctor_patient_service.dto.AppointmentDTO;
 import com.hcltech.doctor_patient_service.dto.PatientDTO;
 import com.hcltech.doctor_patient_service.model.Appointment;
 import com.hcltech.doctor_patient_service.model.Patient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,8 @@ import java.util.List;
 @Service
 public class PatientService {
 
+    @Autowired
+    private AppointmentService appointmentService;
     private final PatientDAOService patientDAOService;
     private final AppointmentDAOService appointmentDAOService;
 
@@ -24,21 +27,32 @@ public class PatientService {
     public PatientDTO insertPatientDetails(PatientDTO patientDto)
     {
         Patient patient=toEntity(patientDto);
-        Patient response= patientDAOService.insertPatient(patient);
+        Patient response= patientDAOService.insertPatientDetails(patient);
         return toDTO(response);
     }
 
-    public PatientDTO update1(PatientDTO p)
-    {
-        Patient patient=toEntity(p);
-        Patient response= patientDAOService.updatePatient(patient);
+    public PatientDTO updatePatientDetails(PatientDTO patientDTO){
+        Patient patient=toEntity(patientDTO);
+        Patient response= patientDAOService.updatePatientDetails(patient);
         return toDTO(response);
+    }
+
+    public PatientDTO getPatientDetails(Long id) {
+        Patient patient = patientDAOService.getPatientDetails(id);
+        Appointment appt = patient.getCurrentAppointment();
+        Long doctorId = (appt != null) ? appt.getDoctor().getId() : 0;
+        return toDTO(patient);
     }
 
     public List<PatientDTO> getAllPatientDetails() {
-        return null;
+        List<Patient> patient = patientDAOService.getAllPatientDetails();
+        return toDTO(patient);
     }
 
+//    private PatientDTO mapToPatientDTO(Patient patient, int doctorId) {
+//        return new PatientDTO(patient.getId(), patient.getFirstName(), patient.getLastName(),
+//                patient.getAge(), patient.getGender(), patient.getPhoneNumber(), doctorId);
+//    }
 
     public Patient toEntity(PatientDTO patientDTO){
         Patient patient = new Patient();
@@ -64,7 +78,7 @@ public class PatientService {
         patientDTO.setId(patient.getId());
         patientDTO.setFirstName(patient.getFirstName());
         patientDTO.setLastName(patient.getLastName());
-        patientDTO.setName(patient.getFirstName()+patient.getLastName());
+        patientDTO.setName(patient.getFirstName()+" "+patient.getLastName());
         patientDTO.setAge(patient.getAge());
         patientDTO.setGender(patient.getGender());
         patientDTO.setPhoneNumber(patient.getPhoneNumber());
@@ -95,7 +109,7 @@ public class PatientService {
         }
 
         Appointment appointment = patient.getCurrentAppointment();
-        return appointmentDAOService.toDTO(appointment);
+        return appointmentService.toDTO(appointment);
     }
 
 }

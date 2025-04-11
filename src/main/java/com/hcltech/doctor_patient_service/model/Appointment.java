@@ -20,8 +20,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 // TODO: Ask Why this is required?
 //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "Id")
-public class Appointment extends BaseModel {
+public class Appointment {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="appointment_id")
+    private Long id;
 //    @NotNull(message = "Appointment time must not be null")
 //    @Future(message = "Appointment time must be in the future")
 

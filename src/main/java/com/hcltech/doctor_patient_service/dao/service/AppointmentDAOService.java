@@ -9,22 +9,25 @@ import org.springframework.stereotype.Service;
 import com.hcltech.doctor_patient_service.model.Appointment;
 import com.hcltech.doctor_patient_service.repository.AppointmentRepo;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AppointmentDAOService {
 
+    @Autowired
     private AppointmentRepo appointmentRepo;
 
-    public AppointmentDAOService(AppointmentRepo appointmentRepo) {
-        this.appointmentRepo = appointmentRepo;
+    public Appointment bookAppointment(Appointment appointment) {
+        return appointmentRepo.save(appointment);
     }
 
     public Appointment getAppointmentById(Long id) {
         if(id == null) {
             return null;
         }
-        return appointmentRepo.findById(id).orElse(null);
+        return appointmentRepo.findById(id).orElseThrow(()-> new IllegalArgumentException("Appointment doesn't found with appointment ID"+id));
     }
 
     public void deleteAppointmentById(Long appointmentId) {
@@ -43,8 +46,8 @@ public class AppointmentDAOService {
         appointmentRepo.deleteById(appointmentId);
     }
 
-    public AppointmentDTO toDTO(Appointment appointment) {
-        return null;
+    public List<Appointment> getAllAppointments() {
+         return appointmentRepo.findAll();
     }
 
 }

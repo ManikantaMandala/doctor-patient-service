@@ -29,17 +29,18 @@ public class PatientController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<PatientDTO> update(@RequestBody @Valid PatientDTO p){
-        PatientDTO p1= patientService.update1(p);
-        if(p1!=null){
-            return ResponseEntity.ok(p1);
+    public ResponseEntity<PatientDTO> updatePatientDetails(@RequestBody @Valid PatientDTO patientDTO){
+        PatientDTO response = patientService.updatePatientDetails(patientDTO);
+        if(response!=null){
+            return ResponseEntity.ok(response);
         }
         return ResponseEntity.notFound().build();
     }
 
 
-    @GetMapping(path = "/getDetailsOfPatients")
-    public ResponseEntity<List<PatientDTO>> getAllPatientDetails(){
+
+    @GetMapping(path = "/patients")
+    public ResponseEntity<List<PatientDTO>> getAllPatients(){
         List<PatientDTO> response = patientService.getAllPatientDetails();
         if(response.isEmpty()){
             return ResponseEntity.noContent().build();
@@ -47,6 +48,14 @@ public class PatientController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/patients/{id}")
+    public ResponseEntity<PatientDTO> getPatientDetails(@PathVariable Long id) {
+        PatientDTO response = patientService.getPatientDetails(id);
+        if(response==null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(response);
+    }
 
     @GetMapping
     public ResponseEntity<AppointmentDTO> viewAppointmentByPatientId(@RequestParam @Valid Long patientId) {
