@@ -114,5 +114,32 @@ public class DoctorService {
 
         return patientDoctorDTO;
     }
+    public DoctorDTO getDoctorDetailsByDoctorId(Long doctorId) {
+        Doctor doctor = doctorDAOService.getDoctorById(doctorId);
+        if(doctor == null) {
+            // TODO: controller advice
+            // TODO: custom exception
+              throw new RuntimeException("doctor does not exist");
+        }
+        return toDto(doctor);
+    }
+    // only update the properties other than appointment list
+    // if you want to update the appointment list
+    // use create or cancel appointment list
+     public boolean updateDoctorById(Long doctorId, DoctorDTO doctorDTO) {
+        Doctor doctor = doctorDAOService.getDoctorById(doctorId);
+
+        DoctorDTO dto = toDto(doctor);
+
+        // only change the properties other than appointment list
+        dto.setName(doctorDTO.getName());
+        dto.setSpecialization(doctor.getSpecialization());
+
+        Doctor entity = toEntity(dto);
+
+        Doctor updatedDoctor = doctorDAOService.updateDoctor(entity);
+
+        return updatedDoctor != null;
+    }
 
 }

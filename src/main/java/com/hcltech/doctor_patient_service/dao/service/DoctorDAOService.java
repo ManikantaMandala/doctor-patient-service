@@ -30,4 +30,24 @@ public class DoctorDAOService {
     public List<Doctor> get() {
         return doctorRepo.findAll();
     }
+
+    public Doctor getDoctorById(Long doctorId) {
+        return doctorRepo.findById(doctorId).orElse(null);
+    }
+
+    public Doctor updateDoctor(Doctor doctor) {
+        Doctor savedDoctor = null;
+        try {
+            savedDoctor = doctorRepo.save(doctor);
+        } catch (Exception e) {
+            // TODO: controller advice
+            // TODO: custom exception
+            throw new RuntimeException(e);
+        } finally {
+            // TODO: Ask Saravana or ChatGPT
+            return savedDoctor;
+        }
+
+    }
+
 }
