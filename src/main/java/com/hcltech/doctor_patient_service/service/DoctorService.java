@@ -7,9 +7,10 @@ import com.hcltech.doctor_patient_service.dao.service.AppointmentDAOService;
 import com.hcltech.doctor_patient_service.dto.DoctorDTO;
 import com.hcltech.doctor_patient_service.model.Appointment;
 import com.hcltech.doctor_patient_service.model.Doctor;
+import com.hcltech.doctor_patient_service.dto.PatientDoctorDTO;
 import org.springframework.stereotype.Service;
 
-
+import java.util.stream.Collectors;
 import java.util.ArrayList;
 
 @Service
@@ -97,6 +98,21 @@ public class DoctorService {
                 .stream()
                 .map(appointment -> appointment.getId())
                 .toList();
+    }
+
+    public List<PatientDoctorDTO> get() {
+        List<PatientDoctorDTO> patientDoctorDTOList = doctorDAOService.get().stream().map(this::toPatientDoctorDto).collect(Collectors.toList());
+        return patientDoctorDTOList;
+    }
+
+    public PatientDoctorDTO toPatientDoctorDto(Doctor doctor) {
+        PatientDoctorDTO patientDoctorDTO = new PatientDoctorDTO();
+        patientDoctorDTO.setId(doctor.getId());
+        patientDoctorDTO.setName(doctor.getName());
+        patientDoctorDTO.setSpecialization(doctor.getSpecialization());
+        patientDoctorDTO.setIsAvaiable(doctor.getAppointments().size() < 4);
+
+        return patientDoctorDTO;
     }
 
 }

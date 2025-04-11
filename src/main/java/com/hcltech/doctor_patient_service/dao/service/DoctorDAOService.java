@@ -2,10 +2,9 @@ package com.hcltech.doctor_patient_service.dao.service;
 
 import com.hcltech.doctor_patient_service.model.Doctor;
 import com.hcltech.doctor_patient_service.repository.DoctorRepo;
-import com.hcltech.doctor_patient_service.model.Doctor;
-import com.hcltech.doctor_patient_service.repository.DoctorRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 import java.util.Optional;
 
@@ -26,5 +25,9 @@ public class DoctorDAOService {
 
     public Doctor createDoctor(Doctor doctor) {
         return doctorRepo.save(doctor);
+    }
+
+    public List<Doctor> get() {
+        return doctorRepo.findAll();
     }
 }
