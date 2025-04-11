@@ -25,9 +25,14 @@ public class DoctorController {
     @Autowired
     private DoctorService doctorService;
 
+    public DoctorController(DoctorService doctorService) {
+        this.doctorService = doctorService;
+    }
+
     @GetMapping("/all")
     public ResponseEntity<List<PatientDoctorDTO>> get() {
         List<PatientDoctorDTO> doctorDtos = doctorService.get();
+
         return ResponseEntity.ok(doctorDtos);
     }
 
