@@ -28,23 +28,25 @@ public class DoctorController {
         this.doctorService = doctorService;
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<PatientDoctorDTO>> get() {
         List<PatientDoctorDTO> doctorDtos = doctorService.get();
 
         return ResponseEntity.ok(doctorDtos);
     }
 
-    @GetMapping
+    @GetMapping("/appointments")
     public ResponseEntity<List<Appointment>> viewAppointmentsByDoctorId(@RequestParam @Valid Long doctorId) {
         List<Appointment> appointments = doctorService.getAppointmentsByDoctorId(doctorId);
         return ResponseEntity.ok(appointments);
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<DoctorDTO> getDoctorDetails(@PathVariable @Valid Long doctorId) {
         DoctorDTO doctorDTO = doctorService.getDoctorDetailsByDoctorId(doctorId);
         return ResponseEntity.ok(doctorDTO);
     }
+
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateDoctorById(@PathVariable @Valid Long id, @RequestBody @Valid DoctorDTO doctorDTO) {
         doctorService.updateDoctorById(id, doctorDTO);
