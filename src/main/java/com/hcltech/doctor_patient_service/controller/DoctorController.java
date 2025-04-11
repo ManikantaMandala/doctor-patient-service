@@ -36,7 +36,7 @@ public class DoctorController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Appointment>> viewAppointmentsByDoctorId(@RequestParam Long doctorId) {
+    public ResponseEntity<List<Appointment>> viewAppointmentsByDoctorId(@RequestParam @Valid Long doctorId) {
         List<Appointment> appointments = doctorService.getAppointmentsByDoctorId(doctorId);
         return ResponseEntity.ok(appointments);
     }
@@ -52,7 +52,7 @@ public class DoctorController {
     }
 
     @PostMapping
-    public ResponseEntity<DoctorDTO> createDoctor(@RequestBody DoctorDTO doctorDTO) {
+    public ResponseEntity<DoctorDTO> createDoctor(@RequestBody @Valid DoctorDTO doctorDTO) {
         DoctorDTO doctor = doctorService.createDoctor(doctorDTO);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()

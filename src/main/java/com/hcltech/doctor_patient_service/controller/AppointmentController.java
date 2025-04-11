@@ -1,5 +1,6 @@
 package com.hcltech.doctor_patient_service.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,7 +21,7 @@ public class AppointmentController {
 
 
     @DeleteMapping("/{appointmentId}")
-    public ResponseEntity<Void> deleteAppointmentById(@PathVariable Long appointmentId) {
+    public ResponseEntity<Void> deleteAppointmentById(@PathVariable @Valid Long appointmentId) {
         appointmentService.deleteAppointment(appointmentId);
 
         return ResponseEntity.noContent().build();

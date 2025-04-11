@@ -4,6 +4,7 @@ import com.hcltech.doctor_patient_service.dto.AppointmentDTO;
 import com.hcltech.doctor_patient_service.dto.PatientDTO;
 import com.hcltech.doctor_patient_service.model.Appointment;
 import com.hcltech.doctor_patient_service.service.PatientService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class PatientController {
     @Autowired
     private PatientService patientService;
     @PostMapping("/insert")
-    public ResponseEntity<PatientDTO> insertPatientDetails(@RequestBody PatientDTO patientDto)
+    public ResponseEntity<PatientDTO> insertPatientDetails(@RequestBody @Valid PatientDTO patientDto)
     {
         PatientDTO response=patientService.insertPatientDetails(patientDto);
         if(response!=null) {
@@ -28,7 +29,7 @@ public class PatientController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<PatientDTO> update(@RequestBody PatientDTO p){
+    public ResponseEntity<PatientDTO> update(@RequestBody @Valid PatientDTO p){
         PatientDTO p1= patientService.update1(p);
         if(p1!=null){
             return ResponseEntity.ok(p1);
@@ -48,7 +49,7 @@ public class PatientController {
 
 
     @GetMapping
-    public ResponseEntity<AppointmentDTO> viewAppointmentByPatientId(@RequestParam Long patientId) {
+    public ResponseEntity<AppointmentDTO> viewAppointmentByPatientId(@RequestParam @Valid Long patientId) {
         AppointmentDTO appointmentDTO = patientService.getAppointmentByPatientId(patientId);
 
         return ResponseEntity.ok(appointmentDTO);
