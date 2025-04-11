@@ -3,10 +3,10 @@
 Develop a Doctor Patient REST Service (Doctor, Patient etc) to manage all the basic CRUD operations. 
 
 ## Things to implement
-- [] Use Spring Boot as a framework.
-- [] Use Maven as a build and dependency management tool.
-- [] Use H2 in-mem or MySQL database.
-- [] Use Swagger-UI (openapi-UI) for consuming the service.
+- [x] Use Spring Boot as a framework.
+- [x] Use Maven as a build and dependency management tool.
+- [x] Use H2 in-mem or MySQL database.
+- [x] Use Swagger-UI (openapi-UI) for consuming the service.
 - [] Implement Testing.
 - [] Implement Logging.
 - [] Use SonarQube and JaCoCo. 
@@ -21,7 +21,7 @@ Develop a Doctor Patient REST Service (Doctor, Patient etc) to manage all the ba
 
 ## Entities 
 
-![Doctor Patient Relationship](./doctor_patient_relationship.png)
+![Doctor Patient Relationship](./doctor-patient-appointment-service-relationship.png)
 
 ## Expected Entity Relationship 
 
@@ -37,4 +37,12 @@ Develop a Doctor Patient REST Service (Doctor, Patient etc) to manage all the ba
 2. A patient can be created and can exists without attached to any doctor. 
 3. A patient can be later attached to any doctor. 
 4. A patient can be attached to only one doctor. 
-5. A patient can be removed from one doctor and can be attached to another doctor (if the other doctor have less then 4 patients). 
+5. A patient can be removed from one doctor and can be attached to another doctor (if the other doctor have less then 4 patients).
+
+### Appointments
+
+1. Appointments can be created/retrieved/updated/deleted.
+2. An Appointment can be created, with specifying Patient's details, Doctor details and the time slot.
+3. An Appointment can only have one patient and one doctor.
+4. If an appointment is cancelled patient details and doctor details should not be removed.
+5. Doctor and Patient relationship is maintained via appointment.

@@ -1,20 +1,34 @@
 @startuml
 
 class Doctor {
-    id: UUID,
+    id: Long,
     name: String,
-    description: String,
-    isAvaiable: boolean,
-    patients: List<Patient>
+    specialization: String,
+    Appointment: List<Appointment>
 }
 
 class Patient {
-    id: UUID,
-    name: String,
-    doctorAssigned: boolean,
-    currentDoctor: Doctor
+    id: Long,
+    firstName: String,
+    lastName: String,
+    age: int,
+    gender: Gender,
+    phoneNumber: String,
+    currentAppointment: Appointment
 }
 
-Doctor --- Patient
+class Appointment {
+    id: Long,
+    time: LocalDateTime,
+    doctor: Doctor,
+    patient: Patient
+}
+
+enum Gender {
+    MALE, FEMALE
+}
+
+Doctor - Appointment
+Patient - Appointment
 
 @enduml
